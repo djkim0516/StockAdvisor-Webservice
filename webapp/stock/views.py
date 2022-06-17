@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from main.models import Main
 import numpy as np
 import pandas as pd
 import os, glob
@@ -37,10 +36,11 @@ def stock(request):
         temproute = route+num+"/"+num+".csv"
         temp = pd.read_csv(temproute, encoding='cp949')
         nowlist.append([temp["종가"][len(temp)-1], name, num])
-        
+    
     for idx,now in enumerate(nowlist):
         monthrate.append([round(100*(monthafterdata[idx]-now[0])/now[0],1), now[1], now[0]])
     monthrate.sort()
+    print(monthrate)
     lowfive = monthrate[:5]
     highfive = monthrate[-5:]
     
